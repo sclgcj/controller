@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title></title>
     <script src="js/mui.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
     <script type="text/javascript" charset="UTF-8">
-      	mui.init();
+		mui.init();
 
 		function createNode(name_str, class_str){
       		var elem = document.createElement(name_str);
@@ -39,6 +40,7 @@
 		function addListNode(jarray, ul_elem){
 			var i = 0;
 			var name;
+			
 			while(jarray[i] != null){
 				console.log(" i = " + i);
 				name = ""+ jarray[i].ip + ":" + jarray[i].port;
@@ -49,7 +51,7 @@
 		}
 
 		function add_error_list_node(pelem){
-			addLiNode("no list", pelem);
+			//addLiNode("no list", pelem);
 		}
 
 		function get_crsl(){
@@ -67,32 +69,27 @@
 		  	console.log("dfsdfs");
 		  	var elem = document.getElementById("ul_crsl");
 		  	if (xmlhttp.readyState==4 && xmlhttp.status==200){
-		    	var txt = xmlhttp.responseText;
-		    	console.log("txt = " + txt);
-		    	if( txt.Result != 0 )
-		    	{
-		    		console.log("dfdfd");
-		    		add_error_list_node(elem);
-		    		return -1;
-		    	}
-		    	
-		    	add_list_node(txt.data, elem);
+		    	var txt=JSON.parse(xmlhttp.responseText);
+		    	console.log("result = " + txt.Result);
+		    	console.log("data = " + txt.data);
+		    	addListNode(txt.data, elem);
 		    }
 		    else{
 		    	console.log("dfdfd");
 		    	add_error_list_node(elem);
 		    }
 		  }
-		  xmlhttp.open("GET","#",true);
+		  xmlhttp.open("GET","http://192.168.0.103:8000/controller/get_cur_run_serv_list/",true);
 		  xmlhttp.send();
 		  console.log("sdee");
 		}
+
       	window.onload = function(){
       		get_crsl();
       		mui(".mui-table-view").on('tap','.mui-table-view-cell',function(){
 				var name = this.getAttribute("name");
 				console.log("name = " + name);
-				http_url = "http://" + name + "/api";
+				http_url = "http://192.168.0.103:8000" + "/controller/index/" + name + "/1";
 				console.log("http_url = " + http_url);
 			});
       		document.addEventListener("plusready",function(){

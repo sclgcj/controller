@@ -199,11 +199,31 @@
 					"css/mui.min.css"
 				],
 				"refer": [
-					"crsl.html"
+					"crsl.html",
+					"sl.html",
+					"tl.html"
 				],
 				"priority": 0
 			},
 			"crsl.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"sl.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"tl.html": {
 				"resources": [
 					"js/mui.min.js",
 					"css/mui.min.css",

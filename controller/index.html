@@ -11,32 +11,47 @@
       	window.onload=function(){
       		mui(".mui-table-view").on('tap','.mui-table-view-cell',function(){
 			  //获取id
+			  	var sUrl = "";
+			  	var sID = "";
 				var id = this.getAttribute("id");
 				console.log("id = " + id);
 			 	switch( id ){
 			 		case "crsl":
-			 			
-						mui.openWindow({
-						    url:"crsl.html",
-						    id:"crsl.html",
+			 			sUrl = "crsl.html";
+			 			sID = "crsl.html";						 			
+			 			break;
+			 		case "tl":
+			 			sUrl = "tl.html";
+			 			sID  = "tl.html";
+			 			break;
+			 		case "sl":
+			 			sUrl = "sl.html";
+			 			sID = "sl.html"
+			 			break;
+			 		case "tpl":
+			 			sUrl = "tpl.html";
+			 			sID  = "tpl.html";
+			 			break;
+			 		case "spl":
+			 			sUrl = "spl.html";
+			 			sID  = "spl.html";
+			 			break;
+			 		case "log":
+			 			sUrl = "log.html";
+			 			sID  = "log.html";
+			 			break;
+			 		case "help":
+			 			sUrl = "help.html";
+			 			sID  = "help.html";
+			 			break;
+			 	}
+			 	mui.openWindow({
+						    url:sUrl,
+						    id:sID,
 						    extras:{
 						      name:id
 						    }
-						});		 			
-			 			break;
-			 		case "tl":
-			 			break;
-			 		case "sl":
-			 			break;
-			 		case "tpl":
-			 			break;
-			 		case "spl":
-			 			break;
-			 		case "log":
-			 			break;
-			 		case "help":
-			 			break;
-			 	}
+						});	
 			});
       	}
       	 
