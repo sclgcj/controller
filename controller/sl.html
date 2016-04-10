@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="UTF-8">
+		mui.init();
+
+		function createNode(name_str, class_str){
+      		var elem = document.createElement(name_str);
+      		elem.setAttribute("class", class_str);
+      		return elem;
+      	}
+		function createNodeWithVal(name_str, class_str, val){
+			var elem = document.createElement(name_str);
+      		elem.setAttribute("class", class_str);
+      		elem.innerHTML = val;
+      		return elem;
+		}
+		
+		function createLiNode(name){
+			var elem = createNode("li", "mui-table-view-cell");
+			var aelem = createNodeWithVal("a", "mui-navigate-right", name);
+			
+			elem.setAttribute("name", name);
+			elem.appendChild(aelem);
+			
+			return elem;
+		}
+
+		function addLiNode(name, pelem){
+			var elem = createLiNode(name);
+			pelem.appendChild(elem);
+		}
+
+		function addListNode(jarray, ul_elem){
+			var i = 0;
+			var name;
+			
+			while(jarray[i] != null){
+				console.log(" i = " + i);
+				name = ""+ jarray[i].ip + ":" + jarray[i].port;
+				console.log("name = " + name);
+				addLiNode(name, ul_elem);
+				i = i+1;
+			}
+		}
+
+		function add_error_list_node(pelem){
+			//addLiNode("no list", pelem);
+		}
+
+		function get_crsl(){
+		  var xmlhttp;
+		  if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  	xmlhttp=new XMLHttpRequest();
+		  }
+		  else
+		  {// code for IE6, IE5
+		  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		  
+		  xmlhttp.onreadystatechange = function(){
+		  	console.log("dfsdfs");
+		  	var elem = document.getElementById("ul_crsl");
+		  	if (xmlhttp.readyState==4 && xmlhttp.status==200){
+		    	var txt=JSON.parse(xmlhttp.responseText);
+		    	console.log("result = " + txt.Result);
+		    	console.log("data = " + txt.data);
+		    	addListNode(txt.data, elem);
+		    }
+		    else{
+		    	console.log("dfdfd");
+		    	add_error_list_node(elem);
+		    }
+		  }
+		  xmlhttp.open("GET","http://192.168.0.103:8000/controller/get_servers",true);
+		  xmlhttp.send();
+		  console.log("sdee");
+		}
+
+      	window.onload = function(){
+      		get_crsl();
+      		mui(".mui-table-view").on('tap','.mui-table-view-cell',function(){
+				var name = this.getAttribute("name");
+				console.log("name = " + name);
+				http_url = "http://192.168.0.103:8000" + "/controller/index/" + name + "/3" ;
+				console.log("http_url = " + http_url);
+			});
+      		document.addEventListener("plusready",function(){
+      			console.log("dfsfsdf");
+				var self = plus.webview.currentWebview();
+	            var dname = self.name;
+	            var elem = document.getElementById("crsl_header");
+	            console.log("hhh = " + dname);
+	            elem.innerHTML = dname;
+	      	}, false);
+      	}
+    </script>
+</head>
+<body>
+  <div class="mui-inner-wrap">
+	<header class="mui-bar mui-bar-nav">
+  		<h1 class="mui-title" id="crsl_header"></h1>
+	</header>
+<!-- 主页面内容容器 -->
+	<div class="mui-content mui-scroll-wrapper">
+	  <div class="mui-scroll">
+	    <!-- 主界面具体展示内容 -->
+	    <ul class="mui-table-view" id="ul_crsl">
+			
+		</ul>
+	  </div>
+	</div>  
+  </div>
+ <div id="popover" class="mui-popover">
+    <p>没有正在运行的服务器-------------------</p>
+</div>
+</body>
+</html>
