@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="UTF-8">
+      	mui.init();
+      	var proj_list;
+      	
+      	function d_set_proj_info(proj){
+      			            var elem = document.getElementById("crsl_header");
+	            elem.innerHTML = proj.proj_name;
+	           	elem = document.getElementById("rc");
+	           	elem.value = proj.run_count;
+	           	elem = document.getElementById("ps");
+	           	switch(proj.proj_status){
+	           		case 0:
+	           			elem.value = "空闲";
+	           			break;
+	           		case 1:
+	           			elem.value = "运行";
+	           			break;
+	           		case 2:
+	           			elem.value = "已经删除";
+	           			break;
+	           		default:
+	           			break;
+	           	}
+	           	elem = document.getElementById("pn");
+	            elem.value = proj.proj_name;
+	            elem = document.getElementById("lsrt");
+	            elem.value = proj.proj_last_start_time;
+	            elem = document.getElementById("pct");
+	            elem.value = proj.proj_create_time;
+	            elem = document.getElementById("lert");
+	            elem.value = proj.proj_last_end_time;
+	            elem = document.getElementById("csrt");
+	            elem.value = proj.proj_cur_start_time;
+	            elem = document.getElementById("cdrt");
+	            elem.value = proj.proj_cur_dur_time;
+	            
+      	}
+      	window.onload = function(){
+      		document.addEventListener("plusready",function(){
+      			console.log("dfsfsdf");
+				var self = plus.webview.currentWebview();
+				var index = self.index;
+				console.log('index = ' + index);
+	            proj_list = self.projlist;
+				d_set_proj_info(proj_list[index]);
+	      	}, false);
+      	}
+    </script>
+    <style>
+    	.lf{
+    		font-size:15px;
+    	}
+    </style>
+</head>
+<body>
+ 	<div class="mui-inner-wrap">
+		<header class="mui-bar mui-bar-nav">
+  			<h1 class="mui-title" id="crsl_header"></h1>
+		</header>
+		<!-- 主页面内容容器 -->
+		<div class="mui-content mui-scroll-wrapper">
+			<br />
+		  	&nbsp;&nbsp;&nbsp;<label class="lf">运行次数</label>&nbsp;&nbsp;&nbsp;<input id="rc" type="text" style="width:100px" disabled><br/>
+		  	&nbsp;&nbsp;&nbsp;<label class="lf">项目状态</label>&nbsp;&nbsp;&nbsp;<input id="ps" type="text" style="width:100px" disabled><br />
+		  	&nbsp;&nbsp;&nbsp;<label class="lf">项目名称</label>&nbsp;&nbsp;&nbsp;<input id="pn" type="text" style="width:100px" disabled><br />
+		  	&nbsp;&nbsp;&nbsp;<label class="lf">项目创建时间</label>&nbsp;&nbsp;&nbsp;<input id="pct" type="text" style="width:180px" disabled><br />
+		  	&nbsp;&nbsp;&nbsp;<label class="lf">上次开始运行时间</label>&nbsp;&nbsp;&nbsp;<input id="lsrt" type="text" style="width:180px" disabled><br />
+		  	&nbsp;&nbsp;&nbsp;<label class="lf">上次结束运行时间</label>&nbsp;&nbsp;&nbsp;<input id="lert" type="text" style="width:180px" disabled><br />
+		  	&nbsp;&nbsp;&nbsp;<label class="lf">当前开始运行时间</label>&nbsp;&nbsp;&nbsp;<input id="csrt" type="text" style="width:180px" disabled><br />
+		  	&nbsp;&nbsp;&nbsp;<label class="lf">当前已经运行时间</label>&nbsp;&nbsp;&nbsp;<input id="cdrt" type="text" style="width:180px" disabled><br />
+		</div>  
+ 	</div>
+</body>
+</html>

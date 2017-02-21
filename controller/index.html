@@ -7,34 +7,41 @@
     <script src="js/mui.min.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
     <script type="text/javascript" charset="utf-8">
+    	server = "192.168.0.101:8000";
       	mui.init();
       	window.onload=function(){
       		mui(".mui-table-view").on('tap','.mui-table-view-cell',function(){
 			  //获取id
+			  	var sServUrl = "";
 			  	var sUrl = "";
 			  	var sID = "";
 				var id = this.getAttribute("id");
 				console.log("id = " + id);
 			 	switch( id ){
 			 		case "crsl":
+			 			sServUrl = "http://" + server + "/controller/get_cur_run_serv_list/";
 			 			sUrl = "crsl.html";
 			 			sID = "crsl.html";						 			
 			 			break;
 			 		case "tl":
-			 			sUrl = "tl.html";
-			 			sID  = "tl.html";
+			 			sServUrl = "http://" + server + "/controller/get_test_list/";
+			 			sUrl = "crsl.html";
+			 			sID  = "crsl.html";
 			 			break;
 			 		case "sl":
-			 			sUrl = "sl.html";
-			 			sID = "sl.html"
+			 			sServUrl = "http://" + server + "/controller/get_servers";
+			 			sUrl = "crsl.html";
+			 			sID = "crsl.html"
 			 			break;
-			 		case "tpl":
-			 			sUrl = "tpl.html";
-			 			sID  = "tpl.html";
+			 		case "pl":
+			 			sServUrl = "http://" + server + "/controller/get_projects";
+			 			sUrl = "project_list.html";
+			 			sID  = "project_list.html";
 			 			break;
-			 		case "spl":
-			 			sUrl = "spl.html";
-			 			sID  = "spl.html";
+			 		case "apts":
+			 			sServUrl = "http://" + server + "/controller/add_proj_to_server";
+			 			sUrl = "add_proj_to_server.html";
+			 			sID  = "add_proj_to_server.html";
 			 			break;
 			 		case "log":
 			 			sUrl = "log.html";
@@ -49,7 +56,8 @@
 						    url:sUrl,
 						    id:sID,
 						    extras:{
-						      name:id
+						      name:id,
+						      serv_url:sServUrl
 						    }
 						});	
 			});
@@ -76,11 +84,11 @@
 			<li class="mui-table-view-cell" id="sl">
 				<a class="mui-navigate-right">server_list</a>
 			<li>
-			<li class="mui-table-view-cell" id="tpl">
-				<a class="mui-navigate-right">test_project_list</a>
+			<li class="mui-table-view-cell" id="pl">
+				<a class="mui-navigate-right">project_list</a>
 			</li>
-			<li class="mui-table-view-cell" id="spl">
-				<a class="mui-navigate-right">server_project_list</a>
+			<li class="mui-table-view-cell" id="apts">
+				<a class="mui-navigate-right">add_proj_to_server</a>
 			</li>
 			<li class="mui-table-view-cell" id="log">
 				<a class="mui-navigate-right">log</a>

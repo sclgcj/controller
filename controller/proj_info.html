@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="UTF-8">
+    	var proj_info;
+      	mui.init();
+      	function plus_ready(){
+      		console.log("dfsfsdf");
+			var self = plus.webview.currentWebview();
+            proj_info = self.proj;
+            var elem = document.getElementById("pl_header");
+            elem.innerHTML = proj_info.proj_name;
+            elem = document.getElementById("proj_name");
+            elem.innerHTML = proj_info.proj_name;
+            var ct = proj_info.create_time;
+            elem = document.getElementById("pct");	
+            elem.innerHTML = "" + ct.year + "-" + ct.mon + "-" + ct.day + " " + ct.hour + ":" + ct.min + ":" + ct.sec;
+            elem = document.getElementById("plut");
+            ct = proj_info.last_update;
+            elem.innerHTML = "" + ct.year + "-" + ct.mon + "-" + ct.day + " " + ct.hour + ":" + ct.min + ":" + ct.sec;
+      	}
+      	function view_cell_event(){
+      		var name = this.getAttribute("id");
+      		
+      		switch(name){
+      			case "pl":
+      				mui('#popover').popover('toggle');
+      				break;
+      			case "sl":
+      				mui.openWindow({
+						    url:"proj_serv_list.html",
+						    id:"proj_serv_list.html",
+						    extras:{
+							  serv_list:proj_info.proj_server
+						    }
+						});
+      		}
+      	}
+      	window.onload = function(){
+      		document.addEventListener("plusready", plus_ready, false);
+	      	mui(".mui-table-view").on('tap','.mui-table-view-cell', view_cell_event);
+      	}
+    </script>
+    <style>
+    	.font_color{
+    		color: black;
+    	}
+    	.item_font_size{
+    		font-size:14px;
+    	}
+    </style>
+</head>
+<body>
+<div class="mui-inner-wrap">
+	<header class="mui-bar mui-bar-nav">
+		<h1 class="mui-title" id="pl_header"></h1>
+	</header>
+	<!-- 主页面内容容器 -->
+	<div class="mui-content mui-scroll-wrapper">
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell" id="crsl">
+				<span class="font_color item_font_size item_inactive mui-disabled">项目名称</span>
+					<!--正常情况这个值应该是获取的，但是现在只是模拟界面，所以写死PLK-UL00-->
+					<span id="proj_name" class="mui-badge mui-badge-inverted"></span>
+			</li>
+			<li class="mui-table-view-cell mui-disabled">
+					<span class="font_color item_font_size item_inactive mui-disabled">创建时间</span>
+					<!--正常情况这个值应该是获取的，但是现在只是模拟界面，所以写死PLK-UL00-->
+					<span id="pct" class="mui-badge mui-badge-inverted"></span>
+			</li>
+			<li class="mui-table-view-cell mui-disabled">
+					<span class="font_color item_font_size item_inactive mui-disabled">最近更新时间</span>
+					<!--正常情况这个值应该是获取的，但是现在只是模拟界面，所以写死PLK-UL00-->
+					<span id="plut" class="mui-badge mui-badge-inverted"></span>
+			</li>
+			<li class="mui-table-view-cell" id="pl">
+				<a class="mui-navigate-right"><span  class="font_color item_font_size">项目描述</span></a>
+			</li>
+			<li class="mui-table-view-cell" id="sl" class="font_color item_font_size">
+				<a class="mui-navigate-right"><span  class="font_color item_font_size">安装项目的服务器列表</span></a>
+			</li>
+		</ul>
+	</div>  
+</div>	
+<div id="popover" class="mui-popover" style="bottom:40%;left:10%;">
+	<p>项目描述</p>
+	<textarea id="pdesc"></textarea>
+</div>
+</body>
+</html>

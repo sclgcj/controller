@@ -1,35 +1,122 @@
 {
-	"index.html": {
-		"resources": [
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"css/mui.min.css"
-		],
-		"refer": [
-			"crsl.html",
-			"sl.html",
-			"tl.html"
-		]
-	},
-	"crsl.html": {
-		"resources": [
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"fonts/mui.ttf"
-		]
-	},
-	"sl.html": {
-		"resources": [
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"fonts/mui.ttf"
-		]
-	},
-	"tl.html": {
-		"resources": [
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"fonts/mui.ttf"
-		]
-	}
+  "index.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "crsl.html",
+      "sl.html",
+      "tl.html",
+      "project_list.html",
+      "add_proj_to_server.html"
+    ]
+  },
+  "crsl.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/add_node.js"
+    ],
+    "refer": [
+      "detail.html",
+      "server_info.html"
+    ]
+  },
+  "sl.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "refer": []
+  },
+  "tl.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/add_node.js"
+    ],
+    "refer": []
+  },
+  "detail.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "server_info.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "project_list.html",
+      "serv_project_list.html",
+      "server_system_info.html"
+    ]
+  },
+  "project_list.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/add_node.js",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "detail.html",
+      "proj_info.html"
+    ]
+  },
+  "proj_info.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "proj_serv_list.html"
+    ]
+  },
+  "proj_serv_list.html": {
+    "refer": [
+      "server_info.html"
+    ],
+    "resources": [
+      "js/add_node.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ]
+  },
+  "serv_project_list.html": {
+    "resources": [
+      "js/add_node.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "detail.html"
+    ]
+  },
+  "server_system_info.html": {
+    "resources": [
+      "js/Chart.min.js",
+      "js/example.js",
+      "js/Chart.bundle.min.js"
+    ],
+    "refer": []
+  },
+  "add_proj_to_server.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ]
+  }
 }

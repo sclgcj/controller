@@ -201,7 +201,9 @@
 				"refer": [
 					"crsl.html",
 					"sl.html",
-					"tl.html"
+					"tl.html",
+					"project_list.html",
+					"add_proj_to_server.html"
 				],
 				"priority": 0
 			},
@@ -209,9 +211,13 @@
 				"resources": [
 					"js/mui.min.js",
 					"css/mui.min.css",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/add_node.js"
 				],
-				"refer": [],
+				"refer": [
+					"detail.html",
+					"server_info.html"
+				],
 				"priority": 0
 			},
 			"sl.html": {
@@ -227,7 +233,94 @@
 				"resources": [
 					"js/mui.min.js",
 					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/add_node.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"detail.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"server_info.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"project_list.html",
+					"serv_project_list.html",
+					"server_system_info.html"
+				],
+				"priority": 0
+			},
+			"project_list.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/add_node.js",
 					"fonts/mui.ttf"
+				],
+				"refer": [
+					"detail.html",
+					"proj_info.html"
+				],
+				"priority": 0
+			},
+			"proj_info.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf"
+				],
+				"refer": [
+					"proj_serv_list.html"
+				],
+				"priority": 0
+			},
+			"proj_serv_list.html": {
+				"resources": [
+					"js/add_node.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"server_info.html"
+				],
+				"priority": 0
+			},
+			"serv_project_list.html": {
+				"resources": [
+					"js/add_node.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"detail.html"
+				],
+				"priority": 0
+			},
+			"server_system_info.html": {
+				"resources": [
+					"js/Chart.min.js",
+					"js/example.js",
+					"js/Chart.bundle.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"add_proj_to_server.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css"
 				],
 				"refer": [],
 				"priority": 0

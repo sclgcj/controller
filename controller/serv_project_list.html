@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <script src="js/add_node.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="UTF-8">
+    	var proj_list;
+      	mui.init();
+      	function pl_get_project(tdata, proj){
+      		proj.run_count 		= tdata.run_count;
+    		proj.proj_name      = tdata.proj_name;
+    		proj.proj_status    = tdata.proj_status;
+    		var time_obj   = tdata.proj_create_time;
+    		var time_str = "" + time_obj.year + "-" + time_obj.mon + "-" + time_obj.day + 
+    					   " " + time_obj.hour + ":" + time_obj.min + ":" + time_obj.sec;
+    		console.log("proj_create_time = " + time_str);
+    		proj.proj_create_time = time_str;
+    		time_obj = tdata.proj_last_start_time;
+	    	time_str = "" + time_obj.year + "-" + time_obj.mon + "-" + time_obj.day + 
+		   			   " " + time_obj.hour + ":" + time_obj.min + ":" + time_obj.sec;
+		   	console.log("proj_last_start_time = " + time_str);
+    		proj.proj_last_start_time = time_str;
+    		time_obj = tdata.proj_last_end_time;
+	    	time_str = "" + time_obj.year + "-" + time_obj.mon + "-" + time_obj.day + 
+		   			   " " + time_obj.hour + ":" + time_obj.min + ":" + time_obj.sec;
+		   	console.log("proj_last_end_time = " + time_str);
+		   	proj.proj_last_end_time = time_str;
+		   	time_obj = tdata.proj_cur_start_time;
+	    	time_str = "" + time_obj.year + "-" + time_obj.mon + "-" + time_obj.day + 
+		   			   " " + time_obj.hour + ":" + time_obj.min + ":" + time_obj.sec;
+		   	console.log("proj_cur_start_time = " + time_str);
+    		proj.proj_cur_start_time = time_str;
+    		time_obj = tdata.proj_cur_dur_time;
+	    	time_str = "" + time_obj.year + "-" + time_obj.mon + "-" + time_obj.day + 
+		   			   " " + time_obj.hour + ":" + time_obj.min + ":" + time_obj.sec;
+		   	console.log("proj_cur_dur_time = " + time_str);
+    		proj.proj_cur_dur_time = time_str;
+      	}
+      	function get_project_list(sName){
+      		sUrl = "http://192.168.0.101:8000/controller/get_serv_proj_list/" + sName + "/";
+      		mui.getJSON(sUrl,{}, function(raw_data){
+      			mui.each(raw_data, function(index, elem){
+      				console.log("elem = " + typeof elem);
+      				if(typeof elem == 'object'){
+      					if(elem instanceof Array == true){
+      						console.log("elem = " + typeof elem);
+      						mui.each(elem, function(index, elem){
+      							var proj = new Object();
+      							var ulelem = document.getElementById("ul_pl");
+      							pl_get_project(elem, proj);
+      							console.log("index = " + index);
+      							proj_list[index] = proj;
+      							addLiNode(proj.proj_name, index, ulelem);
+      						});
+      					}
+      				}
+      			});
+      		});
+      	}
+      	window.onload = function(){
+      		proj_list = new Array();
+      		
+      		mui(".mui-table-view").on('tap','.mui-table-view-cell',function(){
+				var name = this.getAttribute("id");
+				var iCnt = parseInt(name);
+				console.log("name = " + name);
+				var sUrl = "detail.html";
+				console.log("run time = " + proj_list[iCnt].run_count);
+				mui.openWindow({
+						    url:sUrl,
+						    id:sUrl,
+						    extras:{
+						    	projlist:proj_list,
+						    	index:iCnt
+						    }
+						});
+			});
+			document.addEventListener("plusready",function(){
+      			console.log("dfsfsdf");
+				var self = plus.webview.currentWebview();
+	            get_project_list(self.name);
+	      	}, false);
+			
+	     }
+    </script>
+</head>
+<body>
+<div class="mui-inner-wrap">
+	<header class="mui-bar mui-bar-nav">
+  		<h1 class="mui-title" id="proj_list_header">Project Detail</h1>
+	</header>
+<!-- 主页面内容容器 -->
+	<div class="mui-content mui-scroll-wrapper">
+	  <div class="mui-scroll">
+	    <!-- 主界面具体展示内容 -->
+	    <ul class="mui-table-view" id="ul_pl">
+			
+		</ul>
+	  </div>
+	</div>  
+  </div>
+ <div id="popover" class="mui-popover">
+    <p>没有正在运行的服务器-------------------</p>
+</div>	
+</body>
+</html>

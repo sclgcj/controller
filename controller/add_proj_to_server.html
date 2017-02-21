@@ -5,38 +5,27 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title></title>
     <script src="js/mui.min.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/add_node.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
     <script type="text/javascript" charset="UTF-8">
-    	var gsUrl = "";
-    	
-		mui.init();
-		function get_crsl(){
-			var elem = document.getElementById("ul_crsl");
-		    console.log("sUrl = " + gsUrl);
-      		getServList(gsUrl, elem);
-		}
-
+      	mui.init();
+      	function aptsAddOption(name, id, val, pelem){
+      		var elem = createNode("option");
+			elem.setAttribute("id", id);
+			elem.innerHTML = name;
+			elem.setAttribute("value", val);
+			pelem.appendChild(elem);
+			
+			return elem;
+      	}
       	window.onload = function(){
-      		document.addEventListener("plusready",function(){
-      			console.log("dfsfsdf");
-				var self = plus.webview.currentWebview();
-	            var dname = self.name;
-	            var elem = document.getElementById("crsl_header");
-	            gsUrl = self.serv_url;
-	            console.log("hhh = " + dname);
-	            elem.innerHTML = dname;
-	            get_crsl();
-      			addServListEvent("server_info.html", "server_info.html");
-	      	}, false);
+      		
       	}
     </script>
 </head>
 <body>
 <div class="mui-inner-wrap">
 	<header class="mui-bar mui-bar-nav">
-  		<h1 class="mui-title" id="crsl_header"></h1>
+  		<h1 class="mui-title" id="crsl_header">add_proj_to_server</h1>
 	</header>
 <!-- 主页面内容容器 -->
 	<div class="mui-content mui-scroll-wrapper">
@@ -51,5 +40,7 @@
  <div id="popover" class="mui-popover">
     <p>没有正在运行的服务器-------------------</p>
 </div>
+<select id="select">
+</select>
 </body>
 </html>

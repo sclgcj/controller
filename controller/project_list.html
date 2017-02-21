@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <script src="js/add_node.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="UTF-8">
+    	var proj_list;
+      	mui.init();
+      	
+		function get_pl(iStart, iNum){
+			var pelem = document.getElementById("ul_crsl");
+			sUrl = "http://192.168.0.101:8000/controller/get_proj_list/?start=" + iStart + "&num=" + iNum;
+		    //sUrl = "http://192.168.0.100:8000/controller/get_cur_run_serv_list/";
+			mui.getJSON(sUrl,{}, function(raw_data){
+				mui.each(raw_data, function(index, elem){
+					console.log("elem = " + typeof elem);
+					if(typeof elem == 'object'){
+						if(elem instanceof Array == true){
+							console.log("elem = " + typeof elem);
+							mui.each(elem, function(index, elem){
+								var name = ""+ elem.proj_name;
+								console.log("name = " + name);
+								sproj = new Object();
+								sproj.proj_name = elem.proj_name;
+								sproj.proj_desc = elem.proj_desc;
+								sproj.proj_server = elem.serv_list;
+								sproj.create_time = elem.create_time;
+								sproj.last_update = elem.last_update;
+								proj_list[index] = sproj;
+								addLiNode(name, index, pelem);
+							});
+						}
+					}
+				});
+			});		    
+		}
+		
+		function add_project_list_event(){
+			mui(".mui-table-view").on('tap','.mui-table-view-cell',function(){
+				var name = this.getAttribute("id");
+				console.log("name = " + name);
+				mui.openWindow({
+						    url:"proj_info.html",
+						    id:"proj_info.html",
+						    extras:{
+							  proj:proj_list[name]
+						    }
+						});
+			});
+		}
+
+      	window.onload = function(){
+      		proj_list = new Array();
+      		document.addEventListener("plusready",function(){
+      			console.log("dfsfsdf");
+				var self = plus.webview.currentWebview();
+	            var dname = self.name;
+	            var elem = document.getElementById("crsl_header");
+	            console.log("hhh = " + dname);
+	            elem.innerHTML = dname;
+	            get_pl(0, 10);
+      			add_project_list_event();
+	      	}, false);
+      	}
+    </script>
+</head>
+<body>
+<div class="mui-inner-wrap">
+	<header class="mui-bar mui-bar-nav">
+  		<h1 class="mui-title" id="crsl_header">Project List</h1>
+	</header>
+	<!-- 主页面内容容器 -->
+	<div class="mui-content mui-scroll-wrapper">
+	  <div class="mui-scroll">
+	    <!-- 主界面具体展示内容 -->
+	    <ul class="mui-table-view" id="ul_crsl">			
+		</ul>
+	  </div>
+	</div>  
+  </div>
+ <div id="popover" class="mui-popover">
+    <p>没有正在运行的服务器-------------------</p>
+</div>	
+</body>
+</html>
